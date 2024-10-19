@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cesur.splinterio.models.dtos.IncienceDTO;
 import com.cesur.splinterio.services.IncidenceService;
 
-
 @RestController
 @RequestMapping("/api")
 public class IncidenceController {
@@ -21,14 +20,12 @@ public class IncidenceController {
 
     @PostMapping("/incidence")
     public ResponseEntity<Integer> storeIncidence(@RequestBody IncienceDTO entity) {
-        //TODO: process POST request
         try {
             incidenceService.storeIncidence(entity);
-            return new ResponseEntity<Integer>(1, HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(null);
         } catch (Exception e) {
-            return new ResponseEntity<Integer>(0, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null);
         }
     }
-
 
 }
