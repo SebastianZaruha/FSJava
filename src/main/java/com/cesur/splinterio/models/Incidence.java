@@ -2,8 +2,8 @@ package com.cesur.splinterio.models;
 
 import java.time.LocalDateTime;
 
-import com.cesur.splinterio.models.utils.Priorities;
-import com.cesur.splinterio.models.utils.Scopes;
+import com.cesur.splinterio.models.utils.enums.Priorities;
+import com.cesur.splinterio.models.utils.enums.Scopes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

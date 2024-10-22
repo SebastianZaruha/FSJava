@@ -2,7 +2,7 @@ package com.cesur.splinterio.models;
 
 import java.time.LocalDateTime;
 
-import com.cesur.splinterio.models.utils.Roles;
+import com.cesur.splinterio.models.utils.enums.Roles;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
