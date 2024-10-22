@@ -1,6 +1,6 @@
 package com.cesur.splinterio.models.dtos;
-import com.cesur.splinterio.models.utils.Priorities;
-import com.cesur.splinterio.models.utils.Scopes;
+import com.cesur.splinterio.models.utils.enums.Priorities;
+import com.cesur.splinterio.models.utils.enums.Scopes;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
