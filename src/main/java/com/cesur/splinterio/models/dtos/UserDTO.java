@@ -19,7 +19,6 @@ public class UserDTO {
     private Roles rol;
     private Boolean active;
     private LocalDateTime lastConnection;
-    //
     private LocalDateTime createdAt;
     private LocalDateTime deletedAt;
     private LocalDateTime updateAt;
