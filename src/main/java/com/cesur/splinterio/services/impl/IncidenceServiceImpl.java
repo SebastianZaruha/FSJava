@@ -1,11 +1,11 @@
 package com.cesur.splinterio.services.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.time.*;
 
-import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cesur.splinterio.models.Incidence;
 import com.cesur.splinterio.models.User;
@@ -25,12 +25,14 @@ public class IncidenceServiceImpl implements IncidenceService {
 
     @Override
     public List<Incidence> getIncidencesByUserName(String username) {
-        throw new UnsupportedOperationException("Unimplemented method 'getIncidencesByUserName'");
+        User user = userRepository.getUserByEmail(username).get();
+        Optional<List<Incidence>> incidencesByUser = incidenceRepository.findByUser(user);
+        return incidencesByUser.get();
     }
 
     @Override
     public void storeIncidence(IncienceDTO datos) {
-        Optional<User> user = userRepository.findById(Long.parseLong(datos.getUserCreated()));
+        Optional<User> user = userRepository.getUserByEmail(datos.getUserCreated());
         if (user.isPresent()) {
             Incidence incidence = new Incidence();
             incidence.setDescription(datos.getDescription());
@@ -44,7 +46,8 @@ public class IncidenceServiceImpl implements IncidenceService {
 
     @Override
     public void deleteIncidence(Long id) {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteIncidence'");
+        // Incidence incidence = incidenceRepository.findById(id).get();
+        incidenceRepository.deleteById(id);
     }
 
     @Override

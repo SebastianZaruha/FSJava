@@ -1,10 +1,7 @@
 package com.cesur.splinterio.models.utils.mappers;
 
-import java.time.LocalDateTime;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import com.cesur.splinterio.models.User;

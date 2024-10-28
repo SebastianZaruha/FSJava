@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cesur.splinterio.models.dtos.UserDTO;
 import com.cesur.splinterio.services.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -19,7 +21,7 @@ public class UserController {
     UserService userService;
 
     @PostMapping("")
-    public ResponseEntity<Void> storeIncidence(@RequestBody @Validated UserDTO userDto) {
+    public ResponseEntity<Void> storeUser(@Valid @RequestBody @Validated UserDTO userDto) {
         try {
             userService.storeUser(userDto);
             return ResponseEntity.status(HttpStatus.OK).build();
