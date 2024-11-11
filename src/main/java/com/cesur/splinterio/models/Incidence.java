@@ -36,6 +36,13 @@ public class Incidence {
     @Column
     @Enumerated(EnumType.STRING)
     private Scopes scope;
+    /**
+     * 1 Abierto
+     * 2 En proceso
+     * 3 Pendiente
+     * 4 Resuelta
+     * 5 Cerrada
+     */
     @Column
     private LocalDateTime createdAt;
     @Column(nullable = true)
