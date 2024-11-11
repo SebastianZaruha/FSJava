@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import com.cesur.splinterio.security.CustomUserDetail;
+import com.cesur.splinterio.security.model.CustomUserDetail;
 
 import java.util.Date;
 import java.util.stream.Collectors;
 
-@Component
+@Component  // Esto es para que se inyecte al arrancar la aplicación para que al aparecer el login, ya esté disponibleL
 public class JwtTokenUtil {
     
     @Value("${jwt.secret}")
