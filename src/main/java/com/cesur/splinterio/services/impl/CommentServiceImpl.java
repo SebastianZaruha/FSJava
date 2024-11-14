@@ -14,8 +14,6 @@ import com.cesur.splinterio.repositories.CommentRepository;
 import com.cesur.splinterio.repositories.IncidenceRepository;
 import com.cesur.splinterio.services.CommentService;
 
-import jakarta.persistence.criteria.CriteriaBuilder.In;
-
 @Component
 public class CommentServiceImpl implements CommentService {
 
@@ -39,7 +37,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment getComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId).orElse(null);
-        return comment;
+        return comment;         // Esta devolviendo una entidad
     }
 
     @Override
@@ -47,7 +45,7 @@ public class CommentServiceImpl implements CommentService {
         Incidence incidence = incidenceRepository.findById(incidenceId).orElse(null);
         Comment comment = commentRepository.findById(incidenceId).orElse(null);
         List<Comment> comments = new ArrayList<>();
-        for (Comment c : commentRepository.findAll()) {
+        for (Comment c : commentRepository.findAll()) {     // Se podría hacer con un findAllByIncidence(incidence) para no recorrer todos los comentarios
             if (c.getIncidence().equals(incidence)) {
                 comments.add(c);
             }
@@ -60,12 +58,16 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId).orElse(null);
         comment.setDeletedAt(LocalDateTime.now());
-    }
+        // Falta la confirmación de la eliminación
 
+    }
+    
     @Override
     public void updateComment(Long commentId, String newCommentText) {
         Comment comment = commentRepository.findById(commentId).orElse(null);
         comment.setContent(newCommentText);
+        // Falta la confirmación de la actualización
+        // Patch
     }
 
 }
