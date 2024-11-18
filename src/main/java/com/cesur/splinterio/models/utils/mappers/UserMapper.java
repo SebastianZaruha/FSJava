@@ -1,72 +1,41 @@
 package com.cesur.splinterio.models.utils.mappers;
 
-import java.time.LocalDateTime;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
 import com.cesur.splinterio.models.User;
 import com.cesur.splinterio.models.dtos.UserDTO;
-import com.cesur.splinterio.models.dtos.UserDTOWOP;
 
-public class UserMapper {
+@Mapper
+public interface UserMapper {
 
-    public static UserDTO userToDTO(User user) {
-        UserDTO response = new UserDTO();
-        if (user != null) {
-            response.setId(user.getId());
-            response.setName(user.getName());
-            response.setEmail(user.getEmail());
-            response.setActive(user.getActive());
-            response.setLastConnection(user.getLastConnection());
-            response.setRol(user.getRol());
-            response.setPassword(user.getPassword());
-        }
-        return response;
-    }
+    UserMapper instance = Mappers.getMapper(UserMapper.class);
 
-    public static UserDTOWOP userToDTOWOP(User user) {
-        UserDTOWOP response;
-        if (user != null) {
-            response = new UserDTOWOP(
-                    user.getId(),
-                    user.getName(),
-                    user.getEmail(),
-                    user.getRol(),
-                    user.getActive(),
-                    user.getLastConnection());
-        } else {
-            response = new UserDTOWOP();
-        }
-        return response;
-    }
+    // condicion base
+    UserDTO userToUserDB(User user);
 
-    public static User dtoToUserCreated(UserDTO user) {
-        User response = new User();
-        if (response != null) {
-            response.setId(user.getId());
-            response.setName(user.getName());
-            response.setEmail(user.getEmail());
-            response.setActive(user.getActive());
-            response.setRol(user.getRol());
-            response.setPassword(user.getPassword());
-            
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "updateAt", ignore = true)
+    @Mapping(target = "lastConnection", ignore = true)
+    User userDTOToUserDB(UserDTO user);
 
-            // response.setDeletedAt();
-            // response.setUpdatedAt();
-            // response.setLastConnection();
-            if(user.getCreatedAt() == null){
-                response.setCreatedAt(LocalDateTime.now());
-            } else{
-                response.setCreatedAt(user.getCreatedAt());
-                if (user.getDeletedAt() != null) {
-                    response.setDeletedAt(user.getDeletedAt());
-                } else if(user.getUpdateAt() != null) {
-                    response.setUpdateAt(user.getUpdateAt());
-                }
-                
-            }
+    @Mapping(target = "id", ignore = true)
+    User userDTOToUserWithoutId(UserDTO user);
 
+    // condicion compleja
+    @Mapping(target = "password", ignore = true)
+    UserDTO userToUserDTOWithoutPass(User user);
 
-        }
-        return response;
-    }
+    // @Mapping(target = "lastConnection", qualifiedByName =
+    // "calculateLaseConnection")
+    // UserDTO userToUserDTOLastConnection(User user);
+    // UserDTO userToUoserDTOLastConnectio(User user);
+
+    // @Named("getCurrentTime")
+    // default LocalDateTime calculateLastConnection() {
+    // return LocalDateTime.now();
+    // }
 
 }
