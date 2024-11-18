@@ -3,6 +3,7 @@ package com.cesur.splinterio.services.impl;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,18 +38,15 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment getComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId).orElse(null);
-        return comment;         // Esta devolviendo una entidad
+        return comment; // Esta devolviendo una entidad
     }
 
     @Override
     public List<Comment> getCommentsByIncident(Long incidenceId) {
-        Incidence incidence = incidenceRepository.findById(incidenceId).orElse(null);
-        Comment comment = commentRepository.findById(incidenceId).orElse(null);
+        Optional<Incidence> incidence = incidenceRepository.findById(incidenceId);
         List<Comment> comments = new ArrayList<>();
-        for (Comment c : commentRepository.findAll()) {     // Se podría hacer con un findAllByIncidence(incidence) para no recorrer todos los comentarios
-            if (c.getIncidence().equals(incidence)) {
-                comments.add(c);
-            }
+        for (Comment c : commentRepository.findAllByIncidence(incidence.get())) {
+            comments.add(c);
         }
         return comments;
 
@@ -58,15 +56,15 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId).orElse(null);
         comment.setDeletedAt(LocalDateTime.now());
-        // Falta la confirmación de la eliminación
+        commentRepository.save(comment);
 
     }
-    
+
     @Override
     public void updateComment(Long commentId, String newCommentText) {
         Comment comment = commentRepository.findById(commentId).orElse(null);
         comment.setContent(newCommentText);
-        // Falta la confirmación de la actualización
+        commentRepository.save(comment);
         // Patch
     }
 
